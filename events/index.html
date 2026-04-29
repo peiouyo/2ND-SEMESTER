@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>buns</title>
+<style>
+    body {
+        background-color: pink;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+        overflow-x: hidden;
+    }
+    h1, h2, h3 { margin: 0; }
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    .yes-btn { background-color: #ff3366; color: white; }
+    .no-btn { background-color: #ff9999; color: white; }
+    #message { margin-top: 30px; font-size: 18px; color: darkred; position: relative; }
+
+    /* Hearts animation */
+    .heart {
+        position: absolute;
+        color: #ff3366;
+        font-size: 24px;
+        animation: float 3s linear infinite;
+        user-select: none;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        50% { transform: translateY(-50px) scale(1.2); opacity: 0.8; }
+        100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    }
+
+    /* Scary effect for No button */
+    .scary {
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+        animation: shake 0.5s infinite;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(1px,1px) rotate(0deg); }
+        10% { transform: translate(-1px,-2px) rotate(-1deg); }
+        20% { transform: translate(-3px,0) rotate(1deg); }
+        30% { transform: translate(3px,2px) rotate(0deg); }
+        40% { transform: translate(1px,-1px) rotate(1deg); }
+        50% { transform: translate(-1px,2px) rotate(-1deg); }
+        60% { transform: translate(-3px,1px) rotate(0deg); }
+        70% { transform: translate(3px,1px) rotate(-1deg); }
+        80% { transform: translate(-1px,-1px) rotate(1deg); }
+        90% { transform: translate(1px,2px) rotate(0deg); }
+        100% { transform: translate(1px,-2px) rotate(-1deg); }
+    }
+</style>
+</head>
+<body>
+
+<h1 id="valentineHeading">Will you be my Valentine? 💌</h1>
+
+<div id="valentineQuestion">
+    <button class="yes-btn" onclick="sayYes()">Yes 🥰</button>
+    <button class="no-btn" id="noBtn" onclick="sayNo()">No 😭</button>
+</div>
+
+<div id="message"></div>
+
+<script>
+const yayText = "YAYYY! 🎉";
+const messageText = "The tides need the moon like I need you, you become the waves to my stagnant life, the sparkle that I crave during the dull moments. I love u barbie mwaps 💖";
+
+function sayYes() {
+    // Hide heading and buttons
+    document.getElementById('valentineHeading').style.display = 'none';
+    document.getElementById('valentineQuestion').style.display = 'none';
+    // Show YAY + message
+    const messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = `<h1 style="color: hotpink; font-size: 60px;">${yayText}</h1><p style="font-size:20px; margin-top:20px;">${messageText}</p>`;
+    // Start subtle hearts
+    createHearts();
+}
+
+function sayNo() {
+    const messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = '<p class="scary">AWWW...PWEASE?</p>';
+    document.getElementById('noBtn').style.display = 'none';
+}
+
+// Subtle floating hearts
+function createHearts() {
+    const container = document.getElementById('message');
+    // Only 3 hearts per creation
+    for(let i = 0; i < 3; i++){
+        const heart = document.createElement('div');
+        heart.textContent = '💖';
+        heart.className = 'heart';
+        heart.style.top = Math.random() * 150 + 'px';
+        heart.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+        heart.style.fontSize = (20 + Math.random()*15) + 'px';
+        heart.style.animationDuration = (2 + Math.random()*2) + 's';
+        container.appendChild(heart);
+        setTimeout(()=>{ heart.remove(); }, 3000);
+    }
+}
+
+// Hearts appear every 1 second instead of every 0.5s
+setInterval(createHearts, 1000);
+</script>
+
+</body>
+</html>

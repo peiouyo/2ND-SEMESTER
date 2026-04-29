@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UwU</title>
+<style>
+    body {
+        background-color: pink;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+        overflow-x: hidden;
+    }
+    h1 { color: red; }
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    .friend-btn { background-color: #ff6699; color: white; border: none; display:block; margin: 10px auto; }
+    .yes-btn { background-color: #ff3366; color: white; }
+    .no-btn { background-color: #ff9999; color: white; }
+    #message { margin-top: 30px; font-size: 18px; color: darkred; position: relative; }
+
+    /* Stars animation */
+    .star {
+        position: absolute;
+        color: gold;
+        font-size: 20px;
+        animation: twinkle 2s infinite;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* Scary effect */
+    .scary {
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+        animation: shake 0.5s infinite;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        30% { transform: translate(3px, 2px) rotate(0deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        60% { transform: translate(-3px, 1px) rotate(0deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        90% { transform: translate(1px, 2px) rotate(0deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+</style>
+</head>
+<body>
+
+<h1 id="chooseHeading">WHICH MCKEEP R U 💖</h1>
+<div id="friends">
+    <button class="friend-btn" onclick="chooseFriend('Anjha')">Anjha</button>
+    <button class="friend-btn" onclick="chooseFriend('Dani')">Dani</button>
+    <button class="friend-btn" onclick="chooseFriend('Dzaddy')">Dzaddy</button>
+    <button class="friend-btn" onclick="chooseFriend('Mark')">Mark</button>
+    <button class="friend-btn" onclick="chooseFriend('Lina')">Lina</button>
+    <button class="friend-btn" onclick="chooseFriend('Kim')">Kim</button>
+</div>
+
+<div id="valentineQuestion" style="display:none;">
+    <h1 id="friendName"></h1>
+    <p>Will you be my Valentine? 💌</p>
+    <button class="yes-btn" onclick="sayYes()">Yes 🥰</button>
+    <button class="no-btn" id="noBtn" onclick="sayNo()">No 😭</button>
+</div>
+
+<div id="message"></div>
+
+<script>
+// Messages exactly as you wrote them
+const messages = {
+    "Anjha": "Anjha, you’re the kind of star that doesn’t just shine — kasi ikaw ang star ng pasko uwu",
+    "Dani": "Dani, if I had to reincarnate id wish for u to always be my twinc",
+    "Dzaddy": "Dzaddy, you’re not just a star....ur the dzaddy shark uwu",
+    "Mark": "Mark, some stars guide sailors home, and honestly, you...are the sailor come back habibi",
+    "Lina": "Lina, you glow so effortlessly do u drink ginkgo biloba e",
+    "Kim": "Kim, you are the star of the star margarine fresh from the utters of the valentine cow"
+};
+
+let currentFriend = "";
+
+function chooseFriend(name) {
+    currentFriend = name;
+    document.getElementById('friends').style.display = 'none';
+    document.getElementById('chooseHeading').style.display = 'none';
+    document.getElementById('valentineQuestion').style.display = 'block';
+    document.getElementById('friendName').textContent = name + ',';
+    document.getElementById('message').innerHTML = ""; // remove any previous message
+    document.getElementById('noBtn').style.display = 'inline-block'; // reset No button
+}
+
+function sayYes() {
+    const messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = `<p>${messages[currentFriend]}</p>`; // show Valentine message
+    createStars(); // stars appear
+}
+
+function sayNo() {
+    const messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = '<p class="scary">BUT WHY??? I LOVE U PLSPLSPLSPLSPLSPLS 😤 Try again!</p>'; // scary message
+    document.getElementById('noBtn').style.display = 'none'; // hide No button
+}
+
+// Floating stars effect
+function createStars() {
+    const container = document.getElementById('message');
+    for(let i = 0; i < 15; i++){
+        const star = document.createElement('div');
+        star.textContent = '⭐';
+        star.className = 'star';
+        star.style.top = Math.random() * 150 + 'px';
+        star.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+        star.style.fontSize = (10 + Math.random()*20) + 'px';
+        star.style.animationDuration = (1 + Math.random()*2) + 's';
+        container.appendChild(star);
+        setTimeout(()=>{ star.remove(); }, 4000);
+    }
+}
+</script>
+
+</body>
+</html>
